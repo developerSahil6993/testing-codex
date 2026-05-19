@@ -41,3 +41,29 @@ The package includes examples for:
 - Synchronized methods
 - ExecutorService with Callable and Future
 - Producer-consumer using BlockingQueue
+
+## Java 21 Practice
+
+Compile all examples:
+
+```sh
+javac -d build/classes $(find src/main/java -name "*.java")
+```
+
+Run Java 21 examples:
+
+```sh
+java -cp build/classes com.example.java21concepts.Java21Practice
+```
+
+Run Java 8 comparison examples:
+
+```sh
+java -cp build/classes com.example.java8comparison.Java8ComparisonPractice
+```
+
+Read the detailed guide:
+
+```sh
+src/main/java/com/example/java21concepts/JAVA_21_VS_JAVA_8.md
+```
