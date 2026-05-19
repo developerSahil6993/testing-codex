@@ -3,6 +3,13 @@ package com.example.java8comparison;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/*
+ * Java 8 style immutable data class.
+ *
+ * This class represents the same idea as the Java 21 Student record, but every
+ * piece has to be written manually: fields, constructor, validation, getters,
+ * and toString. This is the boilerplate records were designed to reduce.
+ */
 public final class Student8 {
     private final int id;
     private final String name;
@@ -10,6 +17,7 @@ public final class Student8 {
     private final LocalDate enrolledOn;
 
     public Student8(int id, String name, String topic, LocalDate enrolledOn) {
+        // Constructor validation protects the object from invalid state.
         if (id <= 0) {
             throw new IllegalArgumentException("id must be positive");
         }
@@ -46,6 +54,7 @@ public final class Student8 {
 
     @Override
     public String toString() {
+        // In Java 8, useful object output has to be written manually.
         return "Student8{"
                 + "id=" + id
                 + ", name='" + name + '\''

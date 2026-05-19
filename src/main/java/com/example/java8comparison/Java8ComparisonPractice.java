@@ -30,8 +30,18 @@ public final class Java8ComparisonPractice {
     }
 
     private static void classBasedDataModel() {
+        /*
+         * Java 8 style data model:
+         * Before records, simple data holders usually needed explicit fields,
+         * constructors, getters, validation, and toString/equals/hashCode if needed.
+         * Compare this with the Student record in the Java 21 package.
+         */
         Student8 student = new Student8(101, "Anika", "Java 8 comparison", LocalDate.of(2026, 5, 19));
 
+        /*
+         * Java 8 has no text blocks, so multi-line output is commonly built with
+         * string concatenation and explicit newline characters.
+         */
         String report = "Student Practice Card\n"
                 + "---------------------\n"
                 + "Id: " + student.getId() + "\n"
@@ -43,6 +53,11 @@ public final class Java8ComparisonPractice {
     }
 
     private static void instanceofChains() {
+        /*
+         * Java 8 comparison for sealed types:
+         * Payment8 is a normal interface, so any class can implement it. The
+         * compiler cannot guarantee that describe(...) handles every payment type.
+         */
         List<Payment8> payments = Arrays.asList(
                 new CardPayment8("card-991", 1_250),
                 new UpiPayment8("student@upi", 650),
@@ -55,6 +70,12 @@ public final class Java8ComparisonPractice {
     }
 
     private static String describe(Payment8 payment) {
+        /*
+         * Java 8 type handling:
+         * You check the type with instanceof, then manually cast before accessing
+         * subtype-specific methods. Java 21 pattern matching switch removes most
+         * of this ceremony.
+         */
         if (payment instanceof CardPayment8) {
             CardPayment8 card = (CardPayment8) payment;
 
@@ -79,6 +100,11 @@ public final class Java8ComparisonPractice {
     }
 
     private static void listUtilities() {
+        /*
+         * Java 8 collection style:
+         * There is no SequencedCollection API, so first/last/reversed operations
+         * are written manually with indexes and Collections.reverse(...).
+         */
         List<String> topics = Arrays.asList("records", "sealed classes", "virtual threads");
 
         System.out.println("First topic: " + topics.get(0));
@@ -89,11 +115,22 @@ public final class Java8ComparisonPractice {
     }
 
     private static void fixedThreadPool() throws InterruptedException {
+        /*
+         * Java 8 concurrency style:
+         * ExecutorService is still useful, but platform threads are heavier than
+         * Java 21 virtual threads. For many blocking tasks, you must think more
+         * carefully about pool size, queueing, and resource limits.
+         */
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
         try {
             for (int index = 1; index <= 3; index++) {
                 final int taskId = index;
+                /*
+                 * Anonymous Runnable classes were common in Java 8-era code.
+                 * A lambda could also be used in Java 8, but this verbose form
+                 * makes the older style contrast easier to see.
+                 */
                 executor.submit(new Runnable() {
                     @Override
                     public void run() {
@@ -112,9 +149,11 @@ public final class Java8ComparisonPractice {
 
     private static void simulateBlockingTask(int taskId) {
         try {
+            // This sleep simulates blocking work running on a platform thread.
             Thread.sleep(100);
             System.out.printf("%s completed task %d%n", Thread.currentThread().getName(), taskId);
         } catch (InterruptedException exception) {
+            // Restore the interrupted flag after catching InterruptedException.
             Thread.currentThread().interrupt();
             throw new IllegalStateException("Worker interrupted", exception);
         }
