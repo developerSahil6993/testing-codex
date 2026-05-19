@@ -20,3 +20,24 @@ Run the application:
 java -cp build/classes com.example.App
 ```
 
+## Multithreading Practice
+
+Compile all examples:
+
+```sh
+javac -d build/classes $(find src/main/java -name "*.java")
+```
+
+Run the multithreading practice runner:
+
+```sh
+java -cp build/classes com.example.multithreading.MultithreadingPractice
+```
+
+The package includes examples for:
+
+- Creating and joining threads
+- Race conditions
+- Synchronized methods
+- ExecutorService with Callable and Future
+- Producer-consumer using BlockingQueue
